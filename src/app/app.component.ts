@@ -23,9 +23,8 @@ export class AppComponent {
           let samuraiCheese = new Satellite(fetchedSatellites[i].name, fetchedSatellites[i].type, fetchedSatellites[i].launchDate, 
             fetchedSatellites[i].orbitType, fetchedSatellites[i].operational);
             this.sourceList.push(samuraiCheese);
+            samuraiCheese.isDebris();
         }
-        //need to add the new Satellite object to sourceList using:
-        //this.sourceList.push(satellite);
       }.bind(this));
     }.bind(this));
   }
