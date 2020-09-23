@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Satellite } from './satellite';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,26 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'orbit-report';
+  sourceList: Satellite[];
+
+  constructor(){
+    this.sourceList = []
+    let satellitesURL = 'https://handlers.education.launchcode.org/static/satellites.json';
+
+    window.fetch(satellitesURL).then(function(response) {
+      response.json().then(function(data) {
+
+        let fetchedSatellites = data.satellites;
+        // need to loop over satellites
+        for (let i = 0; i < fetchedSatellites.length; i++){
+          let samuraiCheese = new Satellite(fetchedSatellites[i].name, fetchedSatellites[i].type, fetchedSatellites[i].launchDate, 
+            fetchedSatellites[i].orbitType, fetchedSatellites[i].operational);
+            this.sourceList.push(samuraiCheese);
+        }
+        //need to add the new Satellite object to sourceList using:
+        //this.sourceList.push(satellite);
+      }.bind(this));
+    }.bind(this));
+  }
 }
+
